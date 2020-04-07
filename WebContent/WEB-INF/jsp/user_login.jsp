@@ -13,16 +13,16 @@
     	<!-- /header --> 
     	<div id="main">
     		<div class="box" id="register">
-    			<div class="title">用户登录</div>
-<form action="" method="post" style="margin: 10px;">
+    			<div class="title">用户登录&nbsp;<span style="color: red;">${message }</span></div>
+<form action="${pageContext.request.contextPath}/login_action" method="post" style="margin: 10px;">
 	<table cellspacing="0" class="no-border">
     	<tr>
     		<td style="text-align: right;">登录账号：</td>
-    		<td><input type="text" name="loginId" class="txt" value="" /></td>
+    		<td><input type="text" name="userId" class="txt" value="" /></td>
     	</tr>
     	<tr>
     		<td style="text-align: right;">登录密码：</td>
-    		<td><input type="password" name="loginPsw" class="txt" value="" /></td>
+    		<td><input type="password" name="userPsw" class="txt" value="" /></td>
     	</tr>
     	<tr>
     		<td>&nbsp;</td>

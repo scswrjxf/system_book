@@ -9,7 +9,7 @@
   	<setting name="autoMappingBehavior" value="FULL"/>
   </settings>
   <typeAliases>
-  	<package name="com.pojo"/>
+  	<package name="com.book.pojo"/>
   </typeAliases>
   <environments default="development">
     <environment id="development">
@@ -23,7 +23,7 @@
     </environment>
   </environments>
   <mappers>
-    <mapper resource="com/dao/UserMapper.xml"/>
+    <mapper resource="com/book/dao/UserMapper.xml"/>
   </mappers>
 </configuration>
 
