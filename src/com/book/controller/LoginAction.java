@@ -37,7 +37,7 @@ public class LoginAction extends HttpServlet {
 		// 把user放入session
 		request.getSession().setAttribute("user", user);
 		if(user.getRole() == 1) {	// 一般用户
-			request.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(request,response);
+			request.getRequestDispatcher("/index").forward(request, response);
 		}
 		else {	// 管理员
 			request.getRequestDispatcher("/WEB-INF/jsp/admin_home.jsp").forward(request,response);
