@@ -24,6 +24,7 @@
   </environments>
   <mappers>
     <mapper resource="com/book/dao/UserMapper.xml"/>
+    <mapper resource="com/book/dao/CategoryMapper.xml"/>
   </mappers>
 </configuration>
 

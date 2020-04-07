@@ -35,8 +35,9 @@
 			</div>
 			<div class="section-right">
 				<h2>添加分类信息</h2>
-				<form action="" method="post">
-					<p>分类名称：<input type="text" name="tname"  /><input type="submit" value=" 保 存 "  /></p>						
+				<p style="color: red;">${message }</p>
+				<form action="${pageContext.request.contextPath}/add_category" method="post">
+					<p>分类名称：<input type="text" name="category"  /><input type="submit" value=" 保 存 "  /></p>						
 			    </form>
 			</div>			
 			<div class="cf"></div>

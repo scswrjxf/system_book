@@ -10,7 +10,7 @@
     	<div class="menu">
     		<ul>
     			<li><a href="${pageContext.request.contextPath}/admin_home">首页</a></li>
-    			<li><a href="category-mgr.html">图书分类管理</a></li>
+    			<li><a href="${pageContext.request.contextPath}/category_mgr">图书分类管理</a></li>
     			<li><a href="book-mgr.html">图书管理</a></li>
     			<li><a href="#">购书订单管理</a></li>
     		</ul>	
