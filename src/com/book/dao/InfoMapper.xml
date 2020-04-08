@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.book.dao.InfoMapper">
+	<!-- 查询书籍信息是否已经存在 -->
+	<select id="findInfoByName" parameterType="Info" resultType="Info">
+		select * from system_book_info 
+		where bookName=#{bookName}
+	</select>
+	
+	<!-- 添加新的书籍信息 -->
+	<insert id="addNewInfo" parameterType="Info" >
+		insert into system_book_info(bookName,author,categoryId,publisher,price,bphoto) values(#{bookName},#{author},#{categoryId},#{publisher},#{price},#{bphoto})
+	</insert>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

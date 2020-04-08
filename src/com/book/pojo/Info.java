@@ -71,5 +71,5 @@ public class Info {
 	}
 	public void setBookCategory(Category bookCategory) {
 		this.bookCategory = bookCategory;
-	}
+	} 
 }

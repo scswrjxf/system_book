@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
 <!DOCTYPE HTML>
 <html>
   <head>
@@ -18,19 +19,13 @@
 			    	<tr>
 			    		<td class="header" width="200">图书分类</td>
 			    		<td class="header" width="60">操作</td>
-			    	</tr>			    
-			    	<tr>
-			    		<td>小说</td>
-			    		<td><a href="#">删除</a></td>
-			    	</tr>			    
-			    	<tr>
-			    		<td>历史</td>
-			    		<td><a href="#">删除</a></td>
-			    	</tr>			    
-			    	<tr>
-			    		<td>玄幻</td>
-			    		<td><a href="#">删除</a></td>
-			    	</tr>			    
+			    	</tr>
+			    	<c:forEach items="${category }" var="cate">		    
+				    	<tr>
+				    		<td>${cate.category }</td>
+				    		<td><a href="${pageContext.request.contextPath}/delete_category?id=${cate.id }">删除</a></td>
+				    	</tr>
+			    	</c:forEach> 	    
 			    </table>
 			</div>
 			<div class="section-right">

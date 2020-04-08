@@ -54,14 +54,15 @@
 			</div>
 			<div class="section-right">
 				<h2>添加图书信息</h2>
-				<form action="" method="post">
+				<p style="color:red">${message }</p>
+				<form action="${pageContext.request.contextPath}/add_book" enctype="multipart/form-data"  method="post">
 					<p>图书书名：<input type="text" name="btitle"  /></p>
 					<p>图书作者：<input type="text" name="bauthor"  /></p>
 					<p>图书分类：
 						<select name="btypeid">
-							<option value="1">小说</option>
-							<option value="2">历史</option>  
-							<option value="5">玄幻</option>  
+							<c:forEach items="${category }" var="cate">
+								<option value="${cate.id }">${cate.category }</option>
+							</c:forEach> 
 						</select>
 					</p>
 					<p>图书售价：<input type="text" name="bprice"  /></p>

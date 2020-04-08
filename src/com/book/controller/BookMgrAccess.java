@@ -10,17 +10,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.book.pojo.Category;
+import com.book.pojo.Info;
 import com.book.service.BookService;
 
-@WebServlet("/category_mgr")
-public class CategoryMgrAccess extends HttpServlet {
+@WebServlet("/book_mgr")
+public class BookMgrAccess extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private BookService bookService=new BookService();
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		List<Category> category = bookService.listCategories(); 
-		request.getSession().setAttribute("category", category);
-		request.getRequestDispatcher("/WEB-INF/jsp/category_mgr.jsp").forward(request,response);
+//		List<Info> info = bookService.listInfos(); 
+//		request.getSession().setAttribute("info", info);
+		request.getRequestDispatcher("/WEB-INF/jsp/book_mgr.jsp").forward(request,response);
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);

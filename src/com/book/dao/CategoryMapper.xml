@@ -5,12 +5,23 @@
 <mapper namespace="com.book.dao.CategoryMapper">
 	<!-- 查询分类是否已经存在 -->
 	<select id="findCategoryByName" parameterType="string" resultType="Category">
-		select * from system_book_category where category=#{name}
+		select * from system_book_category
+		 where category=#{name}
 	</select>
 	<!-- 添加新的分类 -->
 	<insert id="addNewCategory" parameterType="string">
 		insert into system_book_category(category) values(#{name})
 	</insert>
+	<!-- 显示已经存在的所有分类 -->
+	<select id="listCategories" resultType="Category" parameterType="Category">
+		select * from system_book_category order by id DESC
+	</select>
+	<!-- 根据id值判断info表中是否存在对应书籍，若存在则不能删除；否则删除成功 -->  
+	<delete id="deleteCategoryById" parameterType="int">
+		delete from system_book_category
+		 where id=#{id} and 
+		 not exists(select * from system_book_info where categoryId=#{id})
+	</delete>
 </mapper>
 
 

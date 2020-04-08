@@ -1,4 +1,8 @@
-package com.book.dao;
+package com.book.dao; 
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
 
 import com.book.pojo.Category;
 
@@ -15,6 +19,18 @@ public interface CategoryMapper {
 	 * @return 1-成功 0-失败
 	 */
 	int addNewCategory(String name);
+	/**
+	 * 获取所有的分类
+	 * @return
+	 */
+	List<Category> listCategories();
+	
+	/**
+	 * 根据id值删除分类
+	 * @param id
+	 * @return
+	 */
+	int deleteCategoryById(@Param("id") Integer id);
 }
 
 
