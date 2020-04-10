@@ -17,8 +17,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
-import com.book.pojo.Category;
-import com.book.pojo.Info;
+import com.book.pojo.Category; 
 import com.book.service.BookService;
 import com.mysql.jdbc.StringUtils; 
 
@@ -59,7 +58,7 @@ public class AddBookAction extends HttpServlet {
 					String name = item.getFieldName();// 获取参数名称 userId
 					String value = item.getString();// 获取值
 					if(StringUtils.isNullOrEmpty(value)) {
-						request.setAttribute("message","内容不能为空");
+						request.setAttribute("message",name+"内容不能为空");
 						request.getRequestDispatcher("/book_mgr.jsp").forward(request, response);
 						return;
 					}
@@ -93,10 +92,6 @@ public class AddBookAction extends HttpServlet {
 					}
 				}
 			} 
-//			//把对应的内容封装为Info对象
-//			Info info=new Info(null, bookName, author, publisher, price, bookCategory);
-//			//把Info对象放入数据库
-//			int result=bookService.addBookInfo(info);
 			int result =bookService.addBookInfo(bookName, author, 
 					bookCategory.getId(), publisher, price, bphoto);
 			if(result != 0) {

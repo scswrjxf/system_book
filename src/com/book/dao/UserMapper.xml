@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">   
 <mapper namespace="com.book.dao.UserMapper">
 	<!-- 根据账户和密码查询账户信息 -->
 	<select id="findUserByIdAndPsw" resultType="User">
 		select * from system_book_user where userId=#{userId} and userPsw=#{userPsw}
 	</select>
+	<!-- 根据账户查找账户信息是否存在 -->
+	<select id="findUserById" resultType="User" parameterType="String">
+		select * from system_book_user where userId=#{userId} 
+	</select>
+	<!-- 将账户添加到数据库 -->
+	<insert id="addNewUser" >
+		insert into system_book_user(userId,userPsw,userName,role) 
+		values(#{userId} ,#{userPsw} ,#{userName} ,#{role} )
+	</insert>
+	
 </mapper>
 
 

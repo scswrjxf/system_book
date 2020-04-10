@@ -24,14 +24,14 @@ public class LoginAction extends HttpServlet {
 		if(StringUtils.isNullOrEmpty(userId) 
 				|| StringUtils.isNullOrEmpty(userPsw)) {
 			request.setAttribute("message", "账户或密码不能为空");
-			request.getRequestDispatcher("/WEB-INF/jsp/user_login.jsp").forward(request,response);
+			request.getRequestDispatcher("/login").forward(request,response);
 			return;
 		}
 		// 调用服务，查询用户是否存在
 		User user = userService.findUserByIdAndPsw(userId, userPsw);
 		if(user == null) {
 			request.setAttribute("message", "账户或密码错误");
-			request.getRequestDispatcher("/WEB-INF/jsp/user_login.jsp").forward(request,response);
+			request.getRequestDispatcher("/login").forward(request,response);
 			return;
 		}
 		// 把user放入session

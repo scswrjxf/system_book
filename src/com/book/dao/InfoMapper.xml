@@ -16,16 +16,49 @@
 	</insert>
 	
 	<!-- 查询所有的书籍信息 -->
-	<select id="listInfos"  parameterType="Info" resultType="Info">
-		select * from system_book_info order by id DESC;
+	<select id="listInfos" resultMap="infosList">
+		select system_book_info.*,system_book_category.id cid,category
+		from system_book_info 
+		left join system_book_category
+		on system_book_info.categoryId=system_book_category.id 
+	   <where>
+			<if test='category!=null and category!="全部"'>
+				and category=#{category}
+			</if>
+			<if test='bookName!=null and bookName!="无"'>
+				and bookName like CONCAT('%',#{bookName},'%')
+			</if>
+		</where>
+		limit #{from},#{pageSize}
 	</select>
+	<!-- 查询书籍数量 -->
+	<select id="bookCount" resultType="int">
+		select count(system_book_info.id) from system_book_info
+			left join system_book_category
+			on system_book_info.categoryId=system_book_category.id
+			<where>
+				<if test='category!=null and category!="全部"'>
+					and category=#{category}
+				</if>
+				<if test='bookName!=null and bookName!="无"'>
+					and bookName like CONCAT('%',#{bookName},'%')
+				</if>
+			</where>
+	</select>
+	<resultMap type="Info" id="infosList">
+		<!--Info的id属性对应system_book_info表格的id字段，提高效率-->
+		<id property="id" column="id"/>	
+		<association property="bookCategory" javaType="Category" >  
+  			<id property="id" column="cid" /> 
+  		</association>
+	</resultMap> 
 	
 	<!-- 根据id值删除对应书籍信息 -->
 	<delete id="deleteInfoById" parameterType="int">
 		delete from system_book_info where id=#{id};
 	</delete>
 	
-	<!-- 添加新的书籍信息 -->
+	<!-- 添加新的书籍信息（封装） -->
 	<insert id="addNewInfoBook" parameterType="Info" >
 		insert into system_book_info(bookName,author,categoryId,publisher,price,bphoto) 
 		values(#{bookName},#{author},#{bookCategory.id},#{publisher},#{price},#{bphoto})

@@ -13,4 +13,17 @@ public interface UserMapper {
 	 */
 	User findUserByIdAndPsw(
 			@Param("userId") String userId,@Param("userPsw") String userPsw);
+	/**
+	 * 根据账户查找账户信息
+	 * @param userId
+	 * @return 成功返回账户， 失败返回null
+	 */
+	User findUserById(@Param("userId") String userId);
+	
+	/**
+	 * 添加新的账户到数据库
+	 * @param user
+	 * @return
+	 */
+	int addNewUser(User user);
 }

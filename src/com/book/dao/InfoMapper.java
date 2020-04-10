@@ -30,11 +30,24 @@ public interface InfoMapper {
 			@Param("bphoto") String bphoto);
 
 	/**
-	 * 查询所有的书籍
+	 * 查询书籍信息
+	 * @param bookName 
+	 * @param from-起始索引（0开始）
+	 * @param pageSize-每页数量
+	 * @return 书籍信息列表
+	 */ 
+	List<Info> listInfos(@Param("from") Integer from,
+			@Param("pageSize") Integer pageSize,
+			@Param("category") String category,
+			@Param("bookName") String bookName);
+
+	/**
+	 * 返回书籍数量
+	 * @param category 
 	 * @return
 	 */
-	List<Info> listInfos();
-
+	Integer bookCount(@Param("category") String category,
+			@Param("bookName") String bookName);
 	/**
 	 * 根据id值删除对应书籍
 	 * @param id
@@ -48,6 +61,7 @@ public interface InfoMapper {
 	 * @return
 	 */
 	int addNewInfoBook(Info info);
+ 
  
  
 	

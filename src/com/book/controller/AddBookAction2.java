@@ -68,8 +68,11 @@ public class AddBookAction2 extends HttpServlet {
 						bookName = new String(value.getBytes("ISO-8859-1"),"utf-8");
 					else if(name.equals("bauthor"))
 						author = new String(value.getBytes("ISO-8859-1"),"utf-8");
-					else if(name.equals("btypeid"))
-						bookCategory = new Category(Integer.valueOf(value),null);
+					else if(name.equals("btypeid")) {
+//						bookCategory = new Category(Integer.valueOf(value),null);
+						bookCategory = new Category();
+						bookCategory.setId(Integer.valueOf(value));
+						}
 					else if(name.equals("bprice"))
 						price = Double.valueOf(value);
 					else
@@ -94,7 +97,7 @@ public class AddBookAction2 extends HttpServlet {
 					}
 				}
 			} 
-			bookCategory=new Category(categoryId, null);
+			//bookCategory=new Category(categoryId, null);
 			//把对应的内容封装为Info对象
 			Info info=new Info(null, bookName, author, publisher, price,
 					bookCategory,bphoto);

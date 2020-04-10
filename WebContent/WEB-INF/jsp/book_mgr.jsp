@@ -6,6 +6,7 @@
   <head>
     <title>图书网后台管理系统</title>
     <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/static/css/mgr.css"/>
+  	<script src="${pageContext.request.contextPath}/static/js/common.js"></script>
   </head>  
   <body>
     <div id="container">
@@ -30,17 +31,13 @@
 				    		<td>${infos.bookCategory.category }</td>
 				    		<td>￥${infos.price }</td>
 				    		<td><a href="${pageContext.request.contextPath}/delete_info?id=${infos.id }">删除</a>
-				    			&nbsp;<a href="${pageContext.request.contextPath}/book_edit">编辑</a></td>
+				    			&nbsp;<a href="${pageContext.request.contextPath}/book_edit?id=${infos.id }">编辑</a></td>
 			    		</tr>
-			    	</c:forEach> 
-			    	<tr>
-			    		<td>西游记</td>
-			    		<td>吴承恩</td>
-			    		<td>小说</td>
-			    		<td>￥36.0</td>
-			    		<td><a href="#">删除</a>&nbsp;<a href="book-edit.html">编辑</a></td>
-			    	</tr> 
+			    	</c:forEach>  
 			    </table>
+			    <div class="paging">
+	   				${navStr }   					
+    			</div>
 			</div>
 			<div class="section-right">
 				<h2>添加图书信息</h2>
@@ -57,7 +54,8 @@
 					</p>
 					<p>图书售价：<input type="text" name="bprice"  /></p>
 					<p>图书出版社：<input type="text" name="bpublisher"  /></p>   
-					<p>图书图片：<input type="file" name="bphoto"  /></p>    				 				
+					<p><img style="display:none;" id="preview"/></p>
+					<p>图书图片：<input type="file" name="bphoto"  onchange="viewImage(this)" /></p>    				 				
 					<p><input type="submit" value=" 保 存 "  /></p>
 				</form>
 			</div>			

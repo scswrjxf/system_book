@@ -13,8 +13,10 @@
     	<!-- /header --> 
     	<div id="main">
     		<div class="box" id="register">
-    			<div class="title">新用户注册</div>
-<form action="" method="post" style="margin: 10px;">
+    			<div class="title">新用户注册&nbsp;
+    			<span style="color: red;">${message }</span></div>
+<form action="${pageContext.request.contextPath}/user_regist_action" 
+method="post" style="margin: 10px;">
 	<table cellspacing="0" class="no-border">
     	<tr>
     		<td style="text-align: right;">登录账号：</td>
@@ -38,7 +40,8 @@
     	</tr>
     	<tr>
     		<td>&nbsp;</td>
-    		<td><img id="img" src="images/code.jpg" />&nbsp;&nbsp;看不清？<a href="#" style="color: #64A26F;">换张图</a></td>
+    		<td><img id="img" src="${pageContext.request.contextPath}/static/images/code.jpg" />&nbsp;&nbsp;看不清？
+    		<a href="#" style="color: #64A26F;">换张图</a></td>
     	</tr>
     	<tr>
     		<td>&nbsp;</td>

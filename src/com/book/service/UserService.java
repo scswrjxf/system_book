@@ -1,9 +1,8 @@
 package com.book.service;
 
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.ibatis.session.SqlSession;
-
-import com.book.dao.UserMapper;
+import org.apache.ibatis.session.SqlSession; 
+import com.book.dao.UserMapper; 
 import com.book.pojo.User;
 import com.book.tools.MyBatisUtil;
 
@@ -28,5 +27,30 @@ public class UserService {
 		MyBatisUtil.close(sqlSession);
 		// 返回结果
 		return result;
+	} 
+	/**
+	 * 将新的账户添加到数据库
+	 * @param user
+	 * @return
+	 */
+	public int addNewUser(User user) {
+		// 保存返回结果
+		int result = 0;  
+		SqlSession sqlSession = MyBatisUtil.open(); 
+		// 查询此账户是否存在
+		User res = sqlSession.getMapper(UserMapper.class).
+				findUserById(user.getUserId()); 
+		// 不存在此账户
+		if(res == null) {
+		// 添加账户到数据库
+		result = sqlSession.getMapper(UserMapper.class).
+				addNewUser(user); 
+		}
+		//提交事务（增删改）,在关闭之前
+		sqlSession.commit();
+		MyBatisUtil.close(sqlSession);
+		// 返回结果
+		return result;
+		
 	}
 }

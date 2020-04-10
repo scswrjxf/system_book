@@ -10,6 +10,8 @@ import com.book.pojo.Info;
 import com.book.tools.MyBatisUtil;
 
 public class BookService {
+	// 每页数量
+	public final Integer PAGESIZE = 3;
 	/**
 	 * 添加新的分类
 	 * @param category
@@ -92,18 +94,55 @@ public class BookService {
 	}
  
 	/**
-	 * 显示所有的书籍
-	 * @return
+	 * 查询书籍信息
+	 * @param currentPage--当前页
+	 * @param category--分类名称
+	 * @return 书籍信息列表
 	 */
-	public List<Info> listInfos() {
+	public List<Info> listInfos(Integer currentPage,
+			String category,String bookName) {
 		SqlSession sqlSession = MyBatisUtil.open();
 		// 查询此书籍是否存在
-		List<Info> res = sqlSession.getMapper(InfoMapper.class).listInfos();
+		List<Info> res = sqlSession.getMapper(InfoMapper.class).
+				listInfos((currentPage-1)*PAGESIZE, PAGESIZE,category,bookName);
 		MyBatisUtil.close(sqlSession);
 		// 返回结果
 		return res;
 	}
-
+	/**
+	 * 返回书籍数量
+	 * @param category--分类名称
+	 * @return
+	 */
+	public Integer bookCount(String category,String bookName) {
+		SqlSession sqlSession = MyBatisUtil.open();
+		int result = sqlSession.getMapper(InfoMapper.class)
+				.bookCount(category, bookName);
+		sqlSession.close();
+		return result;
+	}
+	/**
+	 * 返回书籍分页导航字符串
+	 * @param currentPage--当前页码
+	 * @param count--总共书籍数量
+	 * @return
+	 */
+	public String bookNavStr(Integer currentPage,Integer count) {
+		// 求得总共页数
+		Integer countPage = count%PAGESIZE==0?count/PAGESIZE:count/PAGESIZE+1;
+		if(currentPage==1 && countPage!=1) {
+			return "<span class='fr'><a href='book_mgr?currentPage=1'>首页</a>&nbsp;<a>上一页</a>&nbsp;<a href='book_mgr?currentPage="+(currentPage+1)+"'>下一页</a>&nbsp;<a href='book_mgr?currentPage="+countPage+"'>尾页</a>&nbsp;</span>"; 
+		}
+		else if(currentPage==countPage && countPage!=1) {
+			return "<span class='fr'><a href='book_mgr?currentPage=1'>首页</a>&nbsp;<a href='book_mgr?currentPage="+(currentPage-1)+"'>上一页</a>&nbsp;<a>下一页</a>&nbsp;<a href='book_mgr?currentPage="+countPage+"'>尾页</a>&nbsp;</span>";
+		}
+		else if(countPage == 1) {
+			return "<span class='fr'><a href='book_mgr?currentPage=1'>首页</a>&nbsp;<a>上一页</a>&nbsp;<a>下一页</a>&nbsp;<a href='book_mgr?currentPage="+countPage+"'>尾页</a>&nbsp;</span>";
+		}
+		else {
+			return "<span class='fr'><a href='book_mgr?currentPage=1'>首页</a>&nbsp;<a href='book_mgr?currentPage="+(currentPage-1)+"'>上一页</a>&nbsp;<a href='book_mgr?currentPage="+(currentPage+1)+"'>下一页</a>&nbsp;<a href='book_mgr?currentPage="+countPage+"'>尾页</a>&nbsp;</span>";
+		}
+	}
 	
 	/**
 	 * 根据id值删除对应书籍
@@ -128,16 +167,24 @@ public class BookService {
 	public int addBookInfo2(Info info) {
 		// 保存返回结果
 		int result = 0; 
-		SqlSession sqlSession = MyBatisUtil.open(); 
+		SqlSession sqlSession = MyBatisUtil.open();
+		// 查询此书籍是否存在
+		Info res = sqlSession.
+				getMapper(InfoMapper.class).findInfoByName(info.getBookName());
+		// 不存在此分类
+		if(res == null) {
 		// 添加分类到数据库
 		result = sqlSession.getMapper(InfoMapper.class).
 				addNewInfoBook(info); 
+		}
 		//提交事务（增删改）,在关闭之前
 		sqlSession.commit();
 		MyBatisUtil.close(sqlSession);
 		// 返回结果
 		return result;
 	}
+ 
+ 
   
 
 
