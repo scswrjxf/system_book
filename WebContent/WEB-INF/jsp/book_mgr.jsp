@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+    <%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt"%>
 <!DOCTYPE HTML>
 <html>
   <head>
@@ -22,40 +23,29 @@
 			    		<td class="header" width="60">售价</td>
 			    		<td class="header" width="60">操作</td>
 			    	</tr>
-			    	<tr>
-			    		<td>三国演义</td>
-			    		<td>罗贯中</td>
-			    		<td>小说</td>
-			    		<td>￥52.5</td>
-			    		<td><a href="#">删除</a>&nbsp;<a href="book-edit.html">编辑</a></td>
-			    	</tr>
+			    	<c:forEach items="${info}" var="infos">
+			    		<tr>
+				    		<td>${infos.bookName }</td>
+				    		<td>${infos.author }</td>
+				    		<td>${infos.bookCategory.category }</td>
+				    		<td>￥${infos.price }</td>
+				    		<td><a href="${pageContext.request.contextPath}/delete_info?id=${infos.id }">删除</a>
+				    			&nbsp;<a href="${pageContext.request.contextPath}/book_edit">编辑</a></td>
+			    		</tr>
+			    	</c:forEach> 
 			    	<tr>
 			    		<td>西游记</td>
 			    		<td>吴承恩</td>
 			    		<td>小说</td>
 			    		<td>￥36.0</td>
 			    		<td><a href="#">删除</a>&nbsp;<a href="book-edit.html">编辑</a></td>
-			    	</tr>
-			    	<tr>
-			    		<td>史记</td>
-			    		<td>司马迁</td>
-			    		<td>历史</td>
-			    		<td>￥78.0</td>
-			    		<td><a href="#">删除</a>&nbsp;<a href="book-edit.html">编辑</a></td>
-			    	</tr>
-			    	<tr>
-			    		<td>红楼梦</td>
-			    		<td>曹雪芹</td>
-			    		<td>小说</td>
-			    		<td>￥92.5</td>
-			    		<td><a href="#">删除</a>&nbsp;<a href="book-edit.html">编辑</a></td>
-			    	</tr>
+			    	</tr> 
 			    </table>
 			</div>
 			<div class="section-right">
 				<h2>添加图书信息</h2>
 				<p style="color:red">${message }</p>
-				<form action="${pageContext.request.contextPath}/add_book" enctype="multipart/form-data"  method="post">
+				<form action="${pageContext.request.contextPath}/add_book2" enctype="multipart/form-data"  method="post">
 					<p>图书书名：<input type="text" name="btitle"  /></p>
 					<p>图书作者：<input type="text" name="bauthor"  /></p>
 					<p>图书分类：

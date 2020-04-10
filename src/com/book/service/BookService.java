@@ -63,18 +63,11 @@ public class BookService {
 		return result;
 	}
 
-	public List<Info> listInfos() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
 	/**
 	 * 添加新的书籍
 	 * @param book
 	 * @return
-	 */
-//	public int addBookInfo(Info book) {
+	 */ 
 	public int addBookInfo(String bookName,String author,Integer categoryId,
 			String publisher,Double price,String bphoto) {
 		// 保存返回结果
@@ -96,7 +89,56 @@ public class BookService {
 		MyBatisUtil.close(sqlSession);
 		// 返回结果
 		return result;
-	} 
+	}
+ 
+	/**
+	 * 显示所有的书籍
+	 * @return
+	 */
+	public List<Info> listInfos() {
+		SqlSession sqlSession = MyBatisUtil.open();
+		// 查询此书籍是否存在
+		List<Info> res = sqlSession.getMapper(InfoMapper.class).listInfos();
+		MyBatisUtil.close(sqlSession);
+		// 返回结果
+		return res;
+	}
+
+	
+	/**
+	 * 根据id值删除对应书籍
+	 * @param id
+	 * @return
+	 */
+	public int deleteInfoById(Integer id) {
+		SqlSession sqlSession = MyBatisUtil.open(); 
+		int result = sqlSession.getMapper(InfoMapper.class)
+				.deleteInfoById(id);
+		sqlSession.commit();
+		MyBatisUtil.close(sqlSession);
+		// 返回结果
+		return result;
+	}
+
+	/**
+	 * 添加新的书籍
+	 * @param info
+	 * @return
+	 */
+	public int addBookInfo2(Info info) {
+		// 保存返回结果
+		int result = 0; 
+		SqlSession sqlSession = MyBatisUtil.open(); 
+		// 添加分类到数据库
+		result = sqlSession.getMapper(InfoMapper.class).
+				addNewInfoBook(info); 
+		//提交事务（增删改）,在关闭之前
+		sqlSession.commit();
+		MyBatisUtil.close(sqlSession);
+		// 返回结果
+		return result;
+	}
+  
 
 
 

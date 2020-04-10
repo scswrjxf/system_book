@@ -22,8 +22,8 @@ import com.book.pojo.Info;
 import com.book.service.BookService;
 import com.mysql.jdbc.StringUtils; 
 
-@WebServlet("/add_book")
-public class AddBookAction extends HttpServlet {
+@WebServlet("/add_book2")
+public class AddBookAction2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private BookService bookService = new BookService();
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -33,6 +33,7 @@ public class AddBookAction extends HttpServlet {
 			String author = null;
 			String publisher = null;
 			Double price = null;
+			Integer categoryId=0;
 			Category bookCategory = null;
 			String bphoto = null;
 			// 获取上传文件的目录(这里表示上传文件的目录为/upload)
@@ -88,17 +89,17 @@ public class AddBookAction extends HttpServlet {
 					}
 					else {// 上传的不是图片
 						request.setAttribute("message","只能上传图片");
-						request.getRequestDispatcher("/book_mgr.jsp").forward(request, response);
+						request.getRequestDispatcher("/book_mgr").forward(request, response);
 						return;
 					}
 				}
 			} 
-//			//把对应的内容封装为Info对象
-//			Info info=new Info(null, bookName, author, publisher, price, bookCategory);
-//			//把Info对象放入数据库
-//			int result=bookService.addBookInfo(info);
-			int result =bookService.addBookInfo(bookName, author, 
-					bookCategory.getId(), publisher, price, bphoto);
+			bookCategory=new Category(categoryId, null);
+			//把对应的内容封装为Info对象
+			Info info=new Info(null, bookName, author, publisher, price,
+					bookCategory,bphoto);
+			//把Info对象放入数据库
+			int result=bookService.addBookInfo2(info); 
 			if(result != 0) {
 				request.setAttribute("message","添加书籍成功");
 				request.getRequestDispatcher("/book_mgr").forward(request,response);

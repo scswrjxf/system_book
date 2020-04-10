@@ -11,8 +11,26 @@
 	
 	<!-- 添加新的书籍信息 -->
 	<insert id="addNewInfo" parameterType="Info" >
-		insert into system_book_info(bookName,author,categoryId,publisher,price,bphoto) values(#{bookName},#{author},#{categoryId},#{publisher},#{price},#{bphoto})
+		insert into system_book_info(bookName,author,categoryId,publisher,price,bphoto) 
+		values(#{bookName},#{author},#{categoryId},#{publisher},#{price},#{bphoto})
 	</insert>
+	
+	<!-- 查询所有的书籍信息 -->
+	<select id="listInfos"  parameterType="Info" resultType="Info">
+		select * from system_book_info order by id DESC;
+	</select>
+	
+	<!-- 根据id值删除对应书籍信息 -->
+	<delete id="deleteInfoById" parameterType="int">
+		delete from system_book_info where id=#{id};
+	</delete>
+	
+	<!-- 添加新的书籍信息 -->
+	<insert id="addNewInfoBook" parameterType="Info" >
+		insert into system_book_info(bookName,author,categoryId,publisher,price,bphoto) 
+		values(#{bookName},#{author},#{bookCategory.id},#{publisher},#{price},#{bphoto})
+	</insert>
+	
 </mapper>
 
 
