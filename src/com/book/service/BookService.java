@@ -1,12 +1,11 @@
 package com.book.service; 
-import java.util.List;
-
+import java.util.List; 
 import org.apache.ibatis.session.SqlSession;
 
 import com.book.dao.CategoryMapper;
-import com.book.dao.InfoMapper;
+import com.book.dao.InfoMapper; 
 import com.book.pojo.Category;
-import com.book.pojo.Info;
+import com.book.pojo.Info; 
 import com.book.tools.MyBatisUtil;
 
 public class BookService {
@@ -80,9 +79,9 @@ public class BookService {
 		// 查询此书籍是否存在
 		Info res = sqlSession.
 				getMapper(InfoMapper.class).findInfoByName(Name);
-		// 不存在此分类
+		// 不存在此书籍
 		if(res == null) {
-			// 添加分类到数据库
+			// 添加书籍到数据库
 			result = sqlSession.getMapper(InfoMapper.class).
 					addNewInfo(bookName, author, categoryId, publisher, price, bphoto);
 		}
@@ -171,12 +170,53 @@ public class BookService {
 		// 查询此书籍是否存在
 		Info res = sqlSession.
 				getMapper(InfoMapper.class).findInfoByName(info.getBookName());
-		// 不存在此分类
+		// 不存在此书籍
 		if(res == null) {
-		// 添加分类到数据库
+		// 添加书籍到数据库
 		result = sqlSession.getMapper(InfoMapper.class).
 				addNewInfoBook(info); 
 		}
+		//提交事务（增删改）,在关闭之前
+		sqlSession.commit();
+		MyBatisUtil.close(sqlSession);
+		// 返回结果
+		return result;
+	}
+	
+	/**
+	 * 根据id查找对应书籍信息
+	 * @param id
+	 * @return
+	 */
+	public Info findInfoById(Integer id) {  
+		// 调用数据查询
+		SqlSession sqlSession = MyBatisUtil.open();
+		Info result = sqlSession.getMapper(InfoMapper.class)
+				.findInfoById(id);
+		MyBatisUtil.close(sqlSession);
+		// 返回结果
+		return result;
+	}
+
+	/**
+	 * 根据id修改书籍信息
+	 * @param info
+	 * @param bphoto 
+	 * @param bookCategory 
+	 * @param price 
+	 * @param publisher 
+	 * @param author 
+	 * @param bookName 
+	 * @param publisher 
+	 * @return
+	 */
+	public int alterInfoById(Info info) {
+		// 保存返回结果
+		int result = 0; 
+		SqlSession sqlSession = MyBatisUtil.open();
+		// 添加分类到数据库
+		result = sqlSession.getMapper(InfoMapper.class).
+				alterInfoById(info );  
 		//提交事务（增删改）,在关闭之前
 		sqlSession.commit();
 		MyBatisUtil.close(sqlSession);

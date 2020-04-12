@@ -64,6 +64,48 @@
 		values(#{bookName},#{author},#{bookCategory.id},#{publisher},#{price},#{bphoto})
 	</insert>
 	
+	<!-- 根据id值查询对应的书籍信息 -->
+	<select id="findInfoById" parameterType="Info" resultType="Info">
+		select system_book_info.*,system_book_category.id cid,category 
+		from system_book_info left join system_book_category
+		on system_book_info.categoryId=system_book_category.id 
+		where system_book_info.id=#{id}
+	</select>
+	
+	<!-- 根据id值修改对应书籍信息 -->
+	<update id="alterInfoById" parameterType="Info" >
+		update system_book_info 
+		<set>
+			<if test="bookName != null">
+				bookName=#{bookName},
+			</if>
+			<if test="author != null">
+				author=#{author},
+			</if>
+			<if test="categoryId != null">
+				categoryId=#{categoryId},
+			</if>
+			<if test="publisher != null">
+				publisher=#{publisher},
+			</if>
+			<if test="price != null">
+				price=#{price},
+			</if>
+			<if test="bphoto != null">
+				bphoto=#{bphoto},
+			</if>
+		</set>
+		where id=#{id}
+		<!--	<trim prefix="set" suffixOverrides="," suffix="where id = #{id}">
+				<if test="bookName != null">bookName=#{bookName}, </if>
+				<if test="author != null">author=#{author},</if>
+				<if test="categoryId != null">categoryId=#{bookCategory.id},</if>
+				<if test="publisher != null">publisher=#{publisher},</if>
+				<if test="price != null">price=#{price},</if> 
+				<if test="bphoto != null">price=#{bphoto}</if>
+			</trim> 
+	 	-->
+	</update>
 </mapper>
 
 

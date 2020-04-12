@@ -61,6 +61,23 @@ public interface InfoMapper {
 	 * @return
 	 */
 	int addNewInfoBook(Info info);
+	/**
+	 * 根据id获取书籍信息
+	 * @param id
+	 * @return
+	 */
+	Info findInfoById(@Param("id") Integer id);
+
+	/**
+	 * 根据id修改书籍信息
+	 * @param info
+	 * @return
+	 */
+	int alterInfoById( Info info); 
+	
+//	int alterInfoById(@Param("bookName") String bookName, @Param("author") String author,
+//			@Param("publisher") String publisher,@Param("price") Double price,
+//			@Param("categoryId") Integer categoryId, @Param("bphoto") String bphoto);
  
  
  
